@@ -3,7 +3,7 @@
 
 Name:		python-wmctrl
 Version:	0.5
-Release:	1
+Release:	2
 Summary:	A tool to programmatically control windows inside X
 URL:		https://pypi.org/project/wmctrl/
 License:	MIT
