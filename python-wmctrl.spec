@@ -1,5 +1,5 @@
 %define module wmctrl
-%bcond_without test
+%bcond test 1
 
 Name:		python-wmctrl
 Version:	0.5
@@ -39,6 +39,9 @@ A tool to programmatically control windows inside X
 
 %prep
 %autosetup -p1 -n %{module}-%{version}
+# Remove bundled egg-info
+rm -rf %{module}.egg-info
+
 sed -i 's/\(py$\|py\.test\)/pytest/g' test/test_wmctrl.py
 
 %build
@@ -49,6 +52,8 @@ sed -i 's/\(py$\|py\.test\)/pytest/g' test/test_wmctrl.py
 
 %if %{with test}
 %check
+export CI=true
+export PYTHONPATH="%{buildroot}%{python_sitearch}:${PWD}"
 cat > /tmp/test_script.sh <<EOF
 #!/bin/sh
 openbox &
